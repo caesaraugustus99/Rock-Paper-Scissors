@@ -15,13 +15,13 @@ function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3) + 1;
 
     if (computerChoice === 1) {
-        console.log('Your opponent chose rock!');
+        console.log('Your opponent chose rock.');
         return 'rock';
     } else if (computerChoice === 2) {
-        console.log('Your opponent chose paper!');
+        console.log('Your opponent chose paper.');
         return 'paper';
     } else if (computerChoice === 3) {
-        console.log('Your opponent chose scissors!');
+        console.log('Your opponent chose scissors.');
         return 'scissors';
     }
 }
@@ -40,7 +40,7 @@ function getComputerChoice() {
 function getHumanChoice() {
     let humanChoice = prompt('Please choose rock, paper, or scissors.').toLowerCase();
     if (humanChoice == 'rock' || humanChoice == 'paper' || humanChoice == 'scissors') {
-        console.log(`You chose ${humanChoice}`);
+        console.log(`You chose ${humanChoice}.`);
         return humanChoice;
     } else {
         console.log('Invalid option, try again.');
@@ -107,35 +107,49 @@ function playGame() {
     let roundNumber = 1;
 
     function playRound() {
-        console.log(`This is Round ${roundNumber} (out of 5)`)
+        console.log(`%cThis is Round ${roundNumber} (out of 5)`, `color: #2acaea`);
 
-        let computerChoice = getComputerChoice();
         let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
         
         if (humanChoice == computerChoice) {
-            console.log('It\'s a tie!');
+            console.log('%cIt\'s a tie!', 'font-weight: 700');
         }
         else if ((humanChoice == 'rock' && computerChoice == 'scissors') || (humanChoice == 'paper' && computerChoice == 'rock') || (humanChoice == 'scissors' && computerChoice == 'paper')) {
     
-            console.log(`${humanChoice} beats ${computerChoice}!`);
+            console.log(`${capitalize(humanChoice)} beats ${computerChoice}!`);
             humanScore++;
-            console.log(`Your score is ${humanScore}`);
-            console.log(`The computer's score is ${computerScore}`);
+            console.log(`%cYour score is ${humanScore}`, `font-weight: 700; color: #00ff7f`); 
+            console.log(`%cThe computer's score is ${computerScore}`, `color: #ffa500`);
     
         } else {
     
-            console.log(`${computerChoice} beats ${humanChoice}!`);
+            console.log(`${capitalize(computerChoice)} beats ${humanChoice}!`);
             computerScore++;
-            console.log(`Your score is ${humanScore}`);
-            console.log(`The computer's score is ${computerScore}`);
+            console.log(`%cYour score is ${humanScore}`, `color: #00ff7f`);
+            console.log(`%cThe computer's score is ${computerScore}`, `font-weight: 700; color: #ffa500`);
     
         }
     }
 
     for (; roundNumber <= 5; roundNumber++) {
         playRound();
-        console.log(roundNumber);
+    }
+
+    if (humanScore > computerScore) {
+        console.log('%cYou win! Congratulations.', 'font-style: italic');
+        console.log('If you want to play again, refresh the page.');
+    } else if (humanScore < computerScore) {
+        console.log('%cYou had your ass handed to ya. Better luck next time, kid.', 'font-style: italic');
+        console.log('If you want to play again, refresh the page.');
+    } else {
+        console.log('%cA tie? Don\'t see that everyday...', 'font-style: italic');
+        console.log('If you want to play again, refresh the page.');
+    }
 }
-}
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
 
 playGame();
